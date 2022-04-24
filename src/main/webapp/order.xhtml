@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      lang="en">
+<h:head>
+    <title>Order</title>
+</h:head>
+<h:body>
+    <ui:insert name="header">
+        <ui:include src="header.xhtml"/>
+    </ui:insert>
+    <h:form id="orderForm">
+        <div class="card" >
+            <h:panelGrid columns="3" cellpadding="7">
+                <h:outputLabel value="Coffee:"/>
+                <h:selectOneMenu value="#{orderBean.coffeeDTO.id}" style="width:12rem">
+                    <f:selectItems value="#{coffeeBean.allCoffee}" var="coffee" itemValue="#{coffee.id}"
+                                   itemLabel="#{coffee.coffeeGrade}"/>
+                    <f:ajax event="click" render="perGram" listener="#{orderBean.selectCoffeePricePerGram}"/>
+                </h:selectOneMenu>
+                <h:outputText id="perGram" value="#{orderBean.coffeePricePerGram}$ per gram"/><br/>
+            </h:panelGrid>
+
+            <h:panelGrid columns="2" cellpadding="7">
+        <h:outputLabel value="Delivery type (courier is more expensive by $ 10):"/>
+        <h:selectOneRadio id="deliveryType" value="#{orderBean.orderDTO.deliveryType}" required="true">
+            <f:selectItem itemValue="COURIER" itemLabel="Courier"/>
+            <f:selectItem itemValue="PICKUP" itemLabel="Pickup"/>
+        </h:selectOneRadio><br/>
+            </h:panelGrid>
+
+        <h:panelGrid columns="5" cellpadding="7">
+            <h:outputText value="Start time"/>
+            <p:datePicker id="startTime" value="#{orderBean.orderDTO.deliveryStartTime}" mode="popup"
+                          onHourShow="tpStartOnHourShowCallback"
+                          onMinuteShow="tpStartOnMinuteShowCallback" widgetVar="startTimeWidget" imeOnly="true"
+                          required="true">
+                <f:attribute name="startTime" value="#{orderBean.orderDTO.deliveryStartTime}"/>
+            </p:datePicker>
+
+            <h:panelGroup layout="block" style="width:20px;"/>
+
+            <h:outputText value="End time"/>
+            <p:datePicker id="endTime" value="#{orderBean.orderDTO.deliveryEndTime}" mode="popup"
+                          onHourShow="tpEndOnHourShowCallback"
+                          onMinuteShow="tpEndOnMinuteShowCallback" widgetVar="endTimeWidget" timeOnly="true"
+                          required="true">
+                <f:validator validatorId="timeValidator"/>
+            </p:datePicker>
+            <p:message for="endTime"/>
+        </h:panelGrid><br/>
+
+            <h:panelGrid columns="3" cellpadding="7">
+        <p:outputLabel for="date" value="Date"/>
+        <p:datePicker id="date" value="#{orderBean.orderDTO.deliveryDate}">
+            <f:validator validatorId="dateValidator"/>
+        </p:datePicker>
+        <p:message for="date"/>
+        <h:outputText/><br/>
+            </h:panelGrid>
+
+            <h:panelGrid columns="4" cellpadding="7">
+        <h:outputLabel for="gramsAmount" value="Amount grams:"/>
+        <h:inputText id="gramsAmount" value="#{orderBean.orderDTO.gramsAmount}" onchange="calculate()">
+            <f:validator validatorId="amountValidator"/>
+            <f:ajax event="keyup" render="amount" listener="#{orderBean.selectGramsAmount}"/>
+        </h:inputText>
+        <p:message for="gramsAmount"/>
+        <h:outputText id="amount" value="#{orderBean.gramsAmount} grams"/><br/>
+            </h:panelGrid>
+
+        <h:inputHidden value="#{orderBean.orderDTO.id}"/>
+
+        <h:commandButton value="Submit" action="#{orderBean.persistOrder}" icon="pi pi-check"/>
+        </div>
+    </h:form>
+</h:body>
+</html>
