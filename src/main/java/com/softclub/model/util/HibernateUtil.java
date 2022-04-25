@@ -1,10 +1,8 @@
 package com.softclub.model.util;
 
-import com.softclub.model.entity.coffee.Coffee;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
