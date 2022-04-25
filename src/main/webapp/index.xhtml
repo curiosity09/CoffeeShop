@@ -44,13 +44,13 @@
 <h:body>
     <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
         <div id="left" class="content">
-            <h:button styleClass="ui-button" value="Make order" outcome="order"/><br/>
+            <h:button styleClass="ui-button" value="#{msg['button.makeOrder']}" outcome="order"/><br/>
         </div>
         <div id="right">
-            <h:outputLabel value="Количество заказов: "/>
+            <h:outputLabel value="#{msg['index.countOrders']} "/>
             <h:outputLabel value="#{orderBean.orderAmount}"/><br/>
-            <h:outputLabel value="Посмотреть заказы: "/>
-            <h:button styleClass="ui-button" value="Show" outcome="allOrders"/>
+            <h:outputLabel value="#{msg['index.showOrders']} "/>
+            <h:button styleClass="ui-button" value="#{msg['button.show']}" outcome="allOrders"/>
         </div>
 </h:body>
 </html>
