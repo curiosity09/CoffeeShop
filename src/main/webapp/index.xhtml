@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: Mikhail
+  Date: 023 23 04 22
+  Time: 12:07
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      lang="en">
+
+<h:head>
+    <title>Start page</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        p {
+            padding: 10px;
+        }
+
+        #left {
+            position: absolute;
+            left: 25%;
+            top: 50%;
+            width: 50%;
+        }
+
+        #right {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            width: 50%;
+        }
+    </style>
+</h:head>
+<h:body>
+    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+        <div id="left" class="content">
+            <h:button styleClass="ui-button" value="#{msg['button.makeOrder']}" outcome="order"/><br/>
+        </div>
+        <div id="right">
+            <h:outputLabel value="#{msg['index.countOrders']} "/>
+            <h:outputLabel value="#{orderBean.orderAmount}"/><br/>
+            <h:outputLabel value="#{msg['index.showOrders']} "/>
+            <h:button styleClass="ui-button" value="#{msg['button.show']}" outcome="allOrders"/>
+        </div>
+</h:body>
+</html>
